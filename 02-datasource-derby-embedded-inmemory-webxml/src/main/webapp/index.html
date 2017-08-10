@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>02-datasource-derby-embedded-inmemory-webxml</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>02-datasource-derby-embedded-inmemory-webxml</h1>
+        <blockquote>
+            <p>Welcome</p>
+        </blockquote>
+        
+        
+        <h1>Test Goals</h1>
+        <blockquote>
+            <p>Can the `web.xml` file be used to bind a
+            `DataSource` to the `java:global/` namespace while creating
+            an <b>embedded</b> and <b>in-memory</b> Derby database?
+            </p>
+        </blockquote>
+        
+        
+        <h1>Test Results</h1>
+        <blockquote>
+            <p>Yes!</p>
+            
+            <p>
+                For derby, it's a little tricky to configure the 
+                `&lt;data-source&gt;` tag of the `web.xml` file so that the 
+                database is <b>in-memory</b> (not written to the file system). But
+                here is what it looks like:
+            </p>
+            
+            <blockquote>
+                <p style='font-family: monospace;'>
+                    &lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;<br/>
+                    &lt;web-app&nbsp;version="3.1"&nbsp;xmlns="http://xmlns.jcp.org/xml/ns/javaee"&nbsp;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"<br/>&nbsp;xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee&nbsp;http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;data-source&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;java:global/ferris/ds/embedded-inmemory-webxml&lt;/name&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;class-name&gt;org.apache.derby.jdbc.EmbeddedDataSource&lt;/class-name&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;database-name&gt;memory:BananaSplitDB&lt;/database-name&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;user&gt;sa&lt;/user&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;password&gt;sa&lt;/password&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;connectionAttributes&lt;/name&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;value&gt;;create=true&lt;/value&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/property&gt;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/data-source&gt;<br/>
+                    &lt;/web-app&gt;<br/>
+                </p>
+            </blockquote>
+            
+            <p>
+                Deploy this project.  Look at the
+                `${com.sun.aas.instanceRoot}/logs/02-datasource-derby-embedded-inmemory-webxml.log`
+                file. You will see a log message with some of the database's
+                metadata which will look something like this:
+            </p>
+            
+            <blockquote>
+                <p>
+                    2017-08-09 21:58:15 INFO  DataSourceDefinitionStartup:30 - <b>Product name: Apache
+                    Derby, Product version: 10.10.2.0 - (1582446), Catalog term: CATALOG, URL: jdbc:
+                    derby:memory:BananaSplitDB</b>
+                </p>
+            </blockquote>
+        </blockquote>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.thoth</groupId>
+        <artifactId>thoth-datasource</artifactId>
+        <version>1.0.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>01-datasource-derby-external-startnetworkserver</artifactId>
+    <packaging>pom</packaging>
+    <name>thoth-datasource: 01-datasource-derby-external-startnetworkserver</name>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <configuration>
+                            <target>
+                                <exec executable="${project.basedir}/db-derby-10.12.1.1-bin/bin/startNetworkServer.bat">
+                                    <env key="JAVA_HOME" value="${project.basedir}/jre"/>
+                                    <env key="DERBY_OPTS" value="-Dderby.drda.portNumber=1110 -Dderby.system.home=${project.basedir}/networkservers"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

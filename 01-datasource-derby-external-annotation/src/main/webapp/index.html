@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>01-datasource-derby-external-annotation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>01-datasource-derby-external-annotation</h1>
+        <blockquote>
+            <p>Welcome</p>
+        </blockquote>
+        
+        
+        <h1>Test Goals</h1>
+        <blockquote>
+            <p>Can the `@DataSourceDefinition` annoation be used to bind a
+            `DataSource` to the `java:global/` namespace while connecting
+            to an <b>external</b> Derby database?
+            </p>
+        </blockquote>
+        
+        
+        <h1>Test Results</h1>
+        <blockquote>
+            <p>Yes!</p>
+            
+            <p>
+                1st, you need an external Derby database.  If you don't
+                have one already running, the `01-datasource-derby-external-startnetworkserver`
+                project has one ready to go for you.  It's a Maven project,
+                so just do a `clean build` and it will start a Derby 
+                database named `ExternalDB` on port 1110.
+            </p>
+            
+            <p>
+                2nd, confirm the `@DataSourceDefinition` configuration in the
+                `DataSourceDefinitionConfig.java` file.  If you are running
+                Derby from `01-datasource-derby-external-startnetworkserver`, there is
+                nothing you need to change.  If you are running your own
+                Derby server, update the `@DataSourceDefinition` configuration
+                appropriately.
+            </p>
+            
+            <p>
+                3rd, deploy this project.  Look at the
+                `${com.sun.aas.instanceRoot}/logs/01-datasource-derby-external-annotation.log`
+                file. You will see a log message with some of the database's
+                metadata which will look something like this:
+            </p>
+            <blockquote>
+                <p>
+                    2017-08-09 19:46:53 INFO  DataSourceDefinitionStartup:30 - 
+                        <b>Product name: Apache Derby, 
+                        Product version: 10.12.1.1 - (1704137), 
+                        Catalog term: CATALOG, 
+                        URL: jdbc:derby://localhost:1110/ExternalDB</b> 
+                </p>
+            </blockquote>
+        </blockquote>
+    </body>
+</html>
