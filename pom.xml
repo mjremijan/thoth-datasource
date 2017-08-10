@@ -63,7 +63,7 @@
     <module>02-datasource-derby-embedded-inmemory-webxml</module>
     <module>03-datasource-derby-embedded-filesystem-annotation</module>
     <module>03-datasource-derby-embedded-filesystem-webxml</module>
-    <module>04-datasource-rainbow-ds</module>
-    <module>04-datasource-rainbow-app</module>
+    <module>04-datasource-rainbow-producer</module>
+    <module>04-datasource-rainbow-consumer</module>
   </modules>
 </project>

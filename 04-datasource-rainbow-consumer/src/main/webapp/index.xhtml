@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    <h:head>
+        <title>04-datasource-rainbow-consumer</title>
+    </h:head>
+    <h:body>
+        <h1>04-datasource-rainbow-consumer</h1>
+        <blockquote>
+            <p>Welcome!</p>
+            <p>
+                This project depends on the deployment of `04-datasource-rainbow-producer`.
+                The `04-datasource-rainbow-producer` must be deployed
+                first because that project creates the database and binds
+                it to JNDI so that this project can use it.
+            </p>
+            
+            <p>
+                This project uses resource ref names to isolate the application
+                from the real JNDI location.  The `web.xml` and `glassfish-web.xml`
+                configurations are:
+            </p>
+            
+            <p><b>web.xml</b></p>
+            <pre>
+&lt;resource-ref&gt;
+    &lt;res-ref-name&gt;WillThisWork&lt;/res-ref-name&gt;
+    &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
+&lt;/resource-ref&gt;                
+            </pre>
+            
+            <p><b>glassfish-web.xml</b></p>
+            <pre>		
+&lt;!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD 
+    GlassFish Application Server 3.1 Servlet 3.0//EN" 
+    "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd"&gt;
+&lt;glassfish-web-app&gt;
+    &lt;resource-ref&gt;
+        &lt;res-ref-name&gt;WillThisWork&lt;/res-ref-name&gt; 
+        &lt;jndi-name&gt;java:global/ferris/jdbc/RainbowDS&lt;/jndi-name&gt;
+    &lt;/resource-ref&gt;
+&lt;/glassfish-web-app&gt;                
+            </pre>
+			
+			<p>
+				<b>The application then uses the `@Resource` tag to inject a `DataSource`.</b>
+			</p>
+			<pre>
+@Resource(lookup="java:module/env/WillThisWork")
+protected DataSource ds;			
+			</pre>
+        </blockquote>
+
+        <h1>COLOR Table (in action)</h1>
+        <blockquote>
+            <p>
+                Count: #{colorController.allCount}
+            </p>
+            
+            <h:dataTable value="#{colorController.all}" var="o">
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">ID</f:facet>
+                    <!-- row record -->
+                    #{o.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">CODE</f:facet>
+                        #{o.code}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">NAME</f:facet>
+                        #{o.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">TIMESTAMP</f:facet>
+                        #{o.createdOn}
+                </h:column>
+            </h:dataTable>
+        </blockquote>
+    </h:body>
+</html>
+

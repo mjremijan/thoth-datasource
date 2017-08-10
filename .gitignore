@@ -2,3 +2,5 @@
 /03-datasource-derby-embedded-filesystem-webxml/target/
 /04-datasource-derby-embedded-producer/target/
 /04-datasource-rainbow-ds/target/
+/04-datasource-rainbow-producer/target/
+/04-datasource-rainbow-consumer/target/

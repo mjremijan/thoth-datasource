@@ -8,10 +8,10 @@
         <version>1.0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>04-datasource-rainbow-app</artifactId>
+    <artifactId>04-datasource-rainbow-consumer</artifactId>
     <packaging>war</packaging>
 
-    <name>thoth-datasource: 04-datasource-rainbow-app</name>
+    <name>thoth-datasource: 04-datasource-rainbow-consumer</name>
     
     <dependencies>
         <dependency>
